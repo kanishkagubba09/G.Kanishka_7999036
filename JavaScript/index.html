@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Community Event Portal</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+      }
+
+      .event {
+        background: white;
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin: 15px 0;
+      }
+
+      img {
+        width: 300px;
+        height: 200px;
+        border-radius: 10px;
+      }
+
+      video {
+        width: 400px;
+        max-width: 100%;
+      }
+
+      button {
+        padding: 8px 15px;
+        margin-top: 10px;
+      }
+
+      #error {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Local Community Event Portal</h1>
+
+    <input type="text" id="searchBox" placeholder="Search Event" />
+
+    <select id="categoryFilter">
+      <option value="All">All</option>
+      <option value="Music">Music</option>
+      <option value="Sports">Sports</option>
+    </select>
+
+    <div id="events"></div>
+
+    <h2>Registration Form</h2>
+
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="Enter Name" />
+
+      <br /><br />
+
+      <input type="email" name="email" placeholder="Enter Email" />
+
+      <br /><br />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p id="error"></p>
+
+    <script>
+      console.log("Welcome to the Community Portal");
+
+      alert("Page Loaded Successfully");
+
+      /* Event Data */
+
+      const events = [
+        {
+          name: "Music Festival",
+          date: "10 June 2026",
+          category: "Music",
+          seats: 50,
+
+          image:
+            "https://images.unsplash.com/photo-1511578314322-379afb476865?w=500",
+
+          video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        },
+
+        {
+          name: "Sports Meet",
+          date: "15 June 2026",
+          category: "Sports",
+          seats: 30,
+
+          image:
+            "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500",
+
+          video: "https://www.w3schools.com/html/movie.mp4",
+        },
+
+        {
+          name: "Food Festival",
+          date: "20 June 2026",
+          category: "Music",
+          seats: 25,
+
+          image:
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500",
+
+          video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        },
+      ];
+
+      /* Add Event */
+
+      function addEvent(event) {
+        events.push(event);
+      }
+
+      /* Register User */
+
+      function registerUser(index) {
+        try {
+          if (events[index].seats > 0) {
+            events[index].seats--;
+
+            renderEvents();
+          } else {
+            throw "No Seats Available";
+          }
+        } catch (error) {
+          alert(error);
+        }
+      }
+
+      /* Filter */
+
+      function filterEventsByCategory(category) {
+        if (category === "All") {
+          return events;
+        }
+
+        return events.filter(function (event) {
+          return event.category === category;
+        });
+      }
+
+      /* Class */
+
+      class Event {
+        constructor(name, date) {
+          this.name = name;
+          this.date = date;
+        }
+      }
+
+      Event.prototype.checkAvailability = function () {
+        return "Seats Available";
+      };
+
+      /* Display Events */
+
+      function renderEvents(list = events) {
+        let container = document.getElementById("events");
+
+        container.innerHTML = "";
+
+        list.forEach(function (event, index) {
+          let card = document.createElement("div");
+
+          card.className = "event";
+
+          card.innerHTML =
+            "<h2>" +
+            event.name +
+            "</h2>" +
+            "<p>Date : " +
+            event.date +
+            "</p>" +
+            "<p>Seats : " +
+            event.seats +
+            "</p>" +
+            "<img src='" +
+            event.image +
+            "' alt='event image'><br><br>" +
+            "<video controls>" +
+            "<source src='" +
+            event.video +
+            "' type='video/mp4'>" +
+            "</video><br><br>" +
+            "<button onclick='registerUser(" +
+            index +
+            ")'>Register</button>";
+
+          container.appendChild(card);
+        });
+      }
+
+      renderEvents();
+
+      /* Category Filter */
+
+      document.getElementById("categoryFilter").onchange = function () {
+        let result = filterEventsByCategory(this.value);
+
+        renderEvents(result);
+      };
+
+      /* Search */
+
+      document.getElementById("searchBox").onkeyup = function () {
+        let value = this.value.toLowerCase();
+
+        let result = events.filter(function (event) {
+          return event.name.toLowerCase().includes(value);
+        });
+
+        renderEvents(result);
+      };
+
+      /* Async Await */
+
+      async function loadData() {
+        try {
+          let response = await fetch(
+            "https://jsonplaceholder.typicode.com/posts",
+          );
+
+          let data = await response.json();
+
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      loadData();
+
+      /* Form Validation */
+
+      document.getElementById("registerForm").addEventListener(
+        "submit",
+
+        function (event) {
+          event.preventDefault();
+
+          let name = this.elements["name"].value;
+
+          let email = this.elements["email"].value;
+
+          if (name === "" || email === "") {
+            document.getElementById("error").innerHTML =
+              "All fields are required";
+
+            return;
+          }
+
+          document.getElementById("error").innerHTML = "";
+
+          setTimeout(function () {
+            alert("Registration Successful");
+          }, 1000);
+        },
+      );
+    </script>
+  </body>
+</html>

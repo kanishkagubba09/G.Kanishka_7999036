@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
+
+/* Universal Selector */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  color: #222;
+
+  background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Header */
+#mainHeader {
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  padding: 20px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Element Selector */
+h2 {
+  color: #003366;
+  margin-top: 20px;
+}
+
+/* Grouping Selector */
+h3,
+p {
+  margin: 10px;
+}
+
+/* Event Cards */
+.eventCard {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid gray;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+/* Images */
+.eventCard img {
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+/* Navigation */
+ul {
+  list-style-type: none;
+  margin: 10px 0;
+}
+
+li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Link Styling */
+a:link {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+}
+
+a:visited {
+  color: purple;
+}
+
+a:active {
+  color: green;
+}
+
+/* Video */
+video {
+  width: 500px;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+/* Table Styling */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background: #dbeeff;
+}
+
+/* Form */
+input {
+  padding: 10px;
+  margin: 5px;
+}
+
+input:focus {
+  outline: 3px solid blue;
+}
+
+/* Multi Column Layout */
+.news {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  li {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .eventCard img {
+    width: 100%;
+    height: auto;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .news {
+    column-count: 1;
+  }
+
+  video {
+    width: 100%;
+  }
+}
